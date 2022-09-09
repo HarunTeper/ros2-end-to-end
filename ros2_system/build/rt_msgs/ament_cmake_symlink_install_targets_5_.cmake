@@ -1,1 +1,0 @@
-ament_cmake_symlink_install_targets("TARGET_FILES" "/home/osboxes/ros2-end-to-end/ros2_system/build/rt_msgs/rosidl_generator_py/rt_msgs/librt_msgs__python.so" "TARGETS" "rt_msgs__python" "ARCHIVE_DESTINATION" "lib" "LIBRARY_DESTINATION" "lib" "RUNTIME_DESTINATION" "bin")

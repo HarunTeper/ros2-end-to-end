@@ -1,1 +1,1 @@
-/home/osboxes/ros2-end-to-end/ros2_system/build/rt_msgs/ament_cmake_environment_hooks/pythonpath.dsv
+prepend-non-duplicate;PYTHONPATH;lib/python3.8/site-packages

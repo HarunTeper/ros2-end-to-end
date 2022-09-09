@@ -1,1 +1,3 @@
-/home/osboxes/ros2-end-to-end/ros2_system/src/rt_msgs/msg/RTEntry.msg
+uint64 reactiontime
+uint64 dataage
+string[] history

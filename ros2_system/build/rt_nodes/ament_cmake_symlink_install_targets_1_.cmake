@@ -1,1 +1,0 @@
-ament_cmake_symlink_install_targets("TARGET_FILES" "/home/osboxes/ros2-end-to-end/ros2_system/build/rt_nodes/librtnode.so" "TARGETS" "rtnode" "ARCHIVE_DESTINATION" "lib" "LIBRARY_DESTINATION" "lib" "RUNTIME_DESTINATION" "bin")

@@ -1,1 +1,4 @@
-/home/osboxes/ros2-end-to-end/ros2_system/build/rt_msgs/ament_cmake_index/share/ament_index/resource_index/rosidl_interfaces/rt_msgs
+msg/RTEntry.idl
+msg/RTEntry.msg
+msg/RTHeader.idl
+msg/RTHeader.msg

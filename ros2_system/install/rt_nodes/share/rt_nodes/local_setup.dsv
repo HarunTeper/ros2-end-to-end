@@ -1,1 +1,2 @@
-/home/osboxes/ros2-end-to-end/ros2_system/build/rt_nodes/ament_cmake_environment_hooks/local_setup.dsv
+source;share/rt_nodes/environment/ament_prefix_path.sh
+source;share/rt_nodes/environment/path.sh
