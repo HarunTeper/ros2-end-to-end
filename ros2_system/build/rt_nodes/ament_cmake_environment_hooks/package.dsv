@@ -1,0 +1,4 @@
+source;share/rt_nodes/local_setup.bash
+source;share/rt_nodes/local_setup.dsv
+source;share/rt_nodes/local_setup.sh
+source;share/rt_nodes/local_setup.zsh

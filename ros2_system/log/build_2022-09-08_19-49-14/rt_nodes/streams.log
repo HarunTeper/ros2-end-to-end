@@ -1,0 +1,77 @@
+[0.006s] Invoking command in '/home/osboxes/ros2-end-to-end/ros2_system/build/rt_nodes': AMENT_PREFIX_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs:/opt/ros/foxy LD_LIBRARY_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/cmake /home/osboxes/ros2-end-to-end/ros2_system/src/rt_nodes -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes
+[0.036s] -- The C compiler identification is GNU 9.4.0
+[0.067s] -- The CXX compiler identification is GNU 9.4.0
+[0.069s] -- Check for working C compiler: /usr/bin/cc
+[0.108s] -- Check for working C compiler: /usr/bin/cc -- works
+[0.109s] -- Detecting C compiler ABI info
+[0.155s] -- Detecting C compiler ABI info - done
+[0.162s] -- Detecting C compile features
+[0.162s] -- Detecting C compile features - done
+[0.164s] -- Check for working CXX compiler: /usr/bin/c++
+[0.207s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[0.208s] -- Detecting CXX compiler ABI info
+[0.251s] -- Detecting CXX compiler ABI info - done
+[0.258s] -- Detecting CXX compile features
+[0.258s] -- Detecting CXX compile features - done
+[0.259s] -- Found ament_cmake: 0.9.9 (/opt/ros/foxy/share/ament_cmake/cmake)
+[0.273s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[0.273s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[0.372s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.384s] -- Found rclcpp: 2.4.1 (/opt/ros/foxy/share/rclcpp/cmake)
+[0.409s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.413s] -- Found rosidl_adapter: 1.2.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)
+[0.452s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "1.1.1f")  
+[0.468s] -- Found FastRTPS: /opt/ros/foxy/include  
+[0.511s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.544s] -- Found rmw_implementation_cmake: 1.0.3 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)
+[0.545s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[0.546s] -- Looking for pthread.h
+[0.587s] -- Looking for pthread.h - found
+[0.587s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[0.627s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+[0.627s] -- Looking for pthread_create in pthreads
+[0.659s] -- Looking for pthread_create in pthreads - not found
+[0.659s] -- Looking for pthread_create in pthread
+[0.697s] -- Looking for pthread_create in pthread - found
+[0.698s] -- Found Threads: TRUE  
+[0.789s] -- Found rt_msgs: 0.0.0 (/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs/share/rt_msgs/cmake)
+[0.849s] -- Configuring done
+[0.856s] -- Generating done
+[0.857s] -- Build files have been written to: /home/osboxes/ros2-end-to-end/ros2_system/build/rt_nodes
+[0.861s] Invoked command in '/home/osboxes/ros2-end-to-end/ros2_system/build/rt_nodes' returned '0': AMENT_PREFIX_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs:/opt/ros/foxy LD_LIBRARY_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/cmake /home/osboxes/ros2-end-to-end/ros2_system/src/rt_nodes -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes
+[0.863s] Invoking command in '/home/osboxes/ros2-end-to-end/ros2_system/build/rt_nodes': AMENT_PREFIX_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs:/opt/ros/foxy LD_LIBRARY_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/cmake --build /home/osboxes/ros2-end-to-end/ros2_system/build/rt_nodes -- -j8 -l8
+[0.885s] [35m[1mScanning dependencies of target rtnode[0m
+[0.908s] [ 25%] [32mBuilding CXX object CMakeFiles/rtnode.dir/src/rt_node.cpp.o[0m
+[5.016s] [ 50%] [32m[1mLinking CXX shared library librtnode.so[0m
+[5.150s] [ 50%] Built target rtnode
+[5.155s] [35m[1mScanning dependencies of target run_system[0m
+[5.176s] [ 75%] [32mBuilding CXX object CMakeFiles/run_system.dir/src/main.cpp.o[0m
+[6.388s] [100%] [32m[1mLinking CXX executable run_system[0m
+[6.468s] [100%] Built target run_system
+[6.474s] Invoked command in '/home/osboxes/ros2-end-to-end/ros2_system/build/rt_nodes' returned '0': AMENT_PREFIX_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs:/opt/ros/foxy LD_LIBRARY_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/cmake --build /home/osboxes/ros2-end-to-end/ros2_system/build/rt_nodes -- -j8 -l8
+[6.488s] Invoking command in '/home/osboxes/ros2-end-to-end/ros2_system/build/rt_nodes': AMENT_PREFIX_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs:/opt/ros/foxy LD_LIBRARY_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/cmake --install /home/osboxes/ros2-end-to-end/ros2_system/build/rt_nodes
+[6.492s] -- Install configuration: ""
+[6.492s] -- Execute custom install script
+[6.492s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/lib/rt_nodes/run_system
+[6.497s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/lib/librtnode.so
+[6.502s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/include/rt_nodes/rt_nodes/rt_node.hpp
+[6.506s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/include/rt_nodes/rt_nodes/rt_register.hpp
+[6.511s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/include//rt_nodes/rt_node.hpp
+[6.515s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/include//rt_nodes/rt_register.hpp
+[6.519s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/share/ament_index/resource_index/package_run_dependencies/rt_nodes
+[6.524s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/share/ament_index/resource_index/parent_prefix_path/rt_nodes
+[6.528s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/share/rt_nodes/environment/ament_prefix_path.sh
+[6.532s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/share/rt_nodes/environment/ament_prefix_path.dsv
+[6.537s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/share/rt_nodes/environment/path.sh
+[6.541s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/share/rt_nodes/environment/path.dsv
+[6.546s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/share/rt_nodes/local_setup.bash
+[6.550s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/share/rt_nodes/local_setup.sh
+[6.554s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/share/rt_nodes/local_setup.zsh
+[6.559s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/share/rt_nodes/local_setup.dsv
+[6.563s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/share/rt_nodes/package.dsv
+[6.568s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/share/ament_index/resource_index/packages/rt_nodes
+[6.572s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/share/rt_nodes/cmake/ament_cmake_export_include_directories-extras.cmake
+[6.577s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/share/rt_nodes/cmake/rt_nodesConfig.cmake
+[6.581s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/share/rt_nodes/cmake/rt_nodesConfig-version.cmake
+[6.585s] -- Symlinking: /home/osboxes/ros2-end-to-end/ros2_system/install/rt_nodes/share/rt_nodes/package.xml
+[6.592s] Invoked command in '/home/osboxes/ros2-end-to-end/ros2_system/build/rt_nodes' returned '0': AMENT_PREFIX_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs:/opt/ros/foxy LD_LIBRARY_PATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/osboxes/ros2-end-to-end/ros2_system/install/rt_msgs/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/cmake --install /home/osboxes/ros2-end-to-end/ros2_system/build/rt_nodes

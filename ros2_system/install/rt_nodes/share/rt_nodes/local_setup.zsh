@@ -1,0 +1,1 @@
+/home/osboxes/ros2-end-to-end/ros2_system/build/rt_nodes/ament_cmake_environment_hooks/local_setup.zsh

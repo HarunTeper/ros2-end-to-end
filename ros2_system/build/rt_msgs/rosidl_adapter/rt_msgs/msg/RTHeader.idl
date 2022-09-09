@@ -1,0 +1,13 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from rt_msgs/msg/RTHeader.msg
+// generated code does not contain a copyright notice
+
+#include "rt_msgs/msg/RTEntry.idl"
+
+module rt_msgs {
+  module msg {
+    struct RTHeader {
+      sequence<rt_msgs::msg::RTEntry> entries;
+    };
+  };
+};
