@@ -7,61 +7,173 @@ The repository is used to reproduce the evaluation from
 
 for RTSS 2022.
 
+To replicate the experiment in the paper, please use the VM and run the experiments.
+
 This document is organized as follows:
 - [End-To-End Timing Analysis](#end-to-end-timing-analysis)
+  - [How to use VM](#how-to-use-vm)
+  - [Experiment Overview](#experiment-overview)
+    - [How to run the experiments](#how-to-run-the-experiments)
+    - [ROS2 system execution](#ros2-system-execution)
+      - [Case Study](#case-study)
+      - [Evaluation](#evaluation)
+    - [ROS2 system simulation and upper bound analysis](#ros2-system-simulation-and-upper-bound-analysis)
+      - [Case Study](#case-study-1)
+      - [Evaluation](#evaluation-1)
+    - [File Structure](#file-structure)
+    - [Overview of the corresponding functions and algorithms](#overview-of-the-corresponding-functions-and-algorithms)
   - [Environment Setup](#environment-setup)
     - [Requirements](#requirements)
-    - [File Structure](#file-structure)
     - [Deployment](#deployment)
-  - [How to run the experiments](#how-to-run-the-experiments)
-    - [ROS2 system execution](#ros2-system-execution)
-    - [ROS2 system simulation and upper bound analysis](#ros2-system-simulation-and-upper-bound-analysis)
     - [System and run time details](#system-and-run-time-details)
-  - [How to use VM](#how-to-use-vm)
-  - [Overview of the corresponding functions and algorithms](#overview-of-the-corresponding-functions-and-algorithms)
   - [Miscellaneous](#miscellaneous)
     - [Authors](#authors)
     - [Acknowledgments](#acknowledgments)
 
-## Environment Setup
-### Requirements
+## How to use VM
 
+- Please download the [zip file](https://tu-dortmund.sciebo.de/s/Po3B0vSe3UGjEEV), which contains the virtual disk and the machine description. The credential is: ros2end2end/rtss2022
+- The source code is deployed on the desktop already. Some common software are installed accordingly, e.g., vscode, git.
+- Please follow the above description to test out the provided analyses.
+- Please note that the scripts are for reproducing the results on the paper.
+
+If you want to install everything manually, please refer the section **Environment Setup**.
+
+## Experiment Overview
+    
 The experiments are split into three parts:
 
-1. ROS2 system execution
-2. ROS2 system simulation
-3. Upper bound analysis
+1. ROS2 system execution (/ros2_system)
+2. ROS2 system simulation (/simulation_and_analysis)
+3. Upper bound analysis (/simulation_and_analysis)
 
-The ROS2 system execution requires a system running Ubuntu 20.04, while the ROS2 system simulation and upper bound analysis can be run on any system running Python 3. 
-Please note that we are running Python 3.8.10, which is the current version that is provided with Ubuntu 20.04.
+The **ROS2 system execution** reproduces the **observed** results for the case-study and evaluation and can needs to be run in the ros2_system folder.
+The **ROS2 system simulation** reproduces the **lower bound** results for the case-study and evaluation and can needs to be run in the simulation_and_analysis folder.
+The **Upper bound analysis** reproduces the **upper bound** results for the case-study and evaluation and can needs to be run in the simulation_and_analysis folder.
 
-For the ROS2 system execution, ROS2-Foxy is required.
+The results of the experiments will be displayed in the terminal that executes the scripts.
 
-The installation steps can be found here:
+### How to run the experiments
+
+We explain how to run each experiment by itself to reproduce the results of the evaluation. Note that we first give full instructions on how to reproduce the results, after which we provide more in-depth explanations on how to configure the experiments.
+
+We refer to the **Case-Study** in Section VIII and the **Evaluation** in Section IX in the paper.
+
+### ROS2 system execution
+
+This section includes how to reproduce the results of the observed values:
+
+Start a terminal and move into the ros2_system folder:
 ```
-https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html
+cd ~/ros2-end-to-end/ros2_system
 ```
-Add ROS2 to your bashrc file:
+Execute the make_script:
 ```
-echo 'source /opt/ros/foxy/setup.bash' >> ~/.bashrc
+./make_script.sh
 ```
-Install Eclipse Cyclone DDS:
+Source the packages:
 ```
-sudo apt install ros-foxy-rmw-cyclonedds-cpp
+source install/setup.bash
 ```
-Install colcon:
+#### Case Study
+
+To replicate the results from the case-study, you need to run eight different systems for 10 seconds.
+
+There are eight different configurations, using under-utilized **(under)** or over-utilized systems **(over)** and four different component combinations **XY**, where **X** represents either a subscription fusion **(S)** or timer fusion **(T)**, and Y represents either a susbcription actuator **(S)** or timer actuator **(T)**.
+
+While the system is running, the terminal displays the maximum reaction time and maximum data age for two different cause-effect-chains. You can identify the chain using the index of the first sensor of the chain.
+Please note that you need to compare your results to the evaluation after every command has finished, as the next command may overwrite the outputs in the terminal.
+In addition, the observed values may fluctuate depending on your system configuration.
+
+After following the previous instructions to build and source the packages, run the following commands:
 ```
-sudo apt install python3-colcon-common-extensions
+ros2 run rt_nodes run_system case_study over SS
+ros2 run rt_nodes run_system case_study over ST
+ros2 run rt_nodes run_system case_study over TS
+ros2 run rt_nodes run_system case_study over TT
+ros2 run rt_nodes run_system case_study under SS
+ros2 run rt_nodes run_system case_study under ST
+ros2 run rt_nodes run_system case_study under TS
+ros2 run rt_nodes run_system case_study under TT
 ```
-To switch to Cyclone DDS, execute the following command after launching every terminal:
+In addition, you can set the execution duration in seconds using an additional argument:
 ```
-export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+ros2 run rt_nodes run_system case_study over SS 30
 ```
-Or add the line to the .bashrc file in your home folder:
+#### Evaluation
+To replicate the results from the case-study, you need to run the navigation system and set the number of cameras. We evaluated a system with one to ten cameras. Please note that we only analyze the first chain in the evaluation, which starts with **CAMERA0**. 
+
+Please use the following commands to run our experiments:
 ```
-echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> ~/.bashrc
+ros2 run rt_nodes run_system navigation_system 1
+ros2 run rt_nodes run_system navigation_system 2
+ros2 run rt_nodes run_system navigation_system 3
+ros2 run rt_nodes run_system navigation_system 4
+ros2 run rt_nodes run_system navigation_system 5
+ros2 run rt_nodes run_system navigation_system 6
+ros2 run rt_nodes run_system navigation_system 7
+ros2 run rt_nodes run_system navigation_system 8
+ros2 run rt_nodes run_system navigation_system 9
+ros2 run rt_nodes run_system navigation_system 10
 ```
-Note that you need to start a new terminal to run the commands in the bashrc file.
+You can set the execution duration in seconds using an additional argument:
+```
+ros2 run rt_nodes run_system navigation_system 1 30
+```
+### ROS2 system simulation and upper bound analysis
+
+This section includes how to reproduce the results of the lower bound and upper bound:
+
+Start a terminal and move into the simulation_and_analysis folder:
+```
+cd ~/ros2-end-to-end/simulation_and_analysis
+```
+#### Case Study
+
+To replicate the results from the case-study, you need to run eight different systems. The scripts only need a few seconds to complete in our cases.
+
+There are eight different configurations, using under-utilized **(under)** or over-utilized systems **(over)** and four different component combinations **XY**, where **X** represents either a subscription fusion **(S)** or timer fusion **(T)**, and Y represents either a susbcription actuator **(S)** or timer actuator **(T)**.
+
+After the script has finished, it displays the maximum reaction time and maximum of all chains, which are stored in the last callback of the chain.
+
+Please note that you need to compare your results to the evaluation after every command has finished, as the next command may overwrite the outputs in the terminal.
+
+After following the previous instructions, run the following commands:
+```
+python3 main.py both case_study over SS
+python3 main.py both case_study over ST
+python3 main.py both case_study over TS
+python3 main.py both case_study over TT
+python3 main.py both case_study under SS
+python3 main.py both case_study under ST
+python3 main.py both case_study under TS
+python3 main.py both case_study under TT
+```
+If you want to only run the simulation or upper bound analysis, replace the argument **both** with either **simulation** or **analysis**, respectively. For example, run these commands separately:
+```
+python3 main.py simulation case_study over SS
+python3 main.py analysis case_study over SS
+```
+
+#### Evaluation
+To replicate the results from the case-study, you need to run the navigation system and set the number of cameras. We evaluated a system with one to ten cameras. Please note that we only analyze the first chain in the evaluation, which starts with **CAMERA0**. Please use the following commands to run our experiments:
+```
+python3 main.py both navigation_system 1
+python3 main.py both navigation_system 2
+python3 main.py both navigation_system 3
+python3 main.py both navigation_system 4
+python3 main.py both navigation_system 5
+python3 main.py both navigation_system 6
+python3 main.py both navigation_system 7
+python3 main.py both navigation_system 8
+python3 main.py both navigation_system 9
+python3 main.py both navigation_system 10
+```
+If you want to only run the simulation or upper bound analysis, replace the argument **both** with either **simulation** or **analysis**, respectively. For example, run these commands separately:
+```
+python3 main.py simulation navigation_system 2
+python3 main.py analysis navigation_system 2
+```
 
 ### File Structure
 
@@ -93,145 +205,8 @@ Note that you need to start a new terminal to run the commands in the bashrc fil
     │   ├── subscription.py			# ROS2 subscription model
     │   └── timer.py				# ROS2 timer model
     └── README.md
-    
-The experiments are split into three parts:
 
-1. ROS2 system execution
-2. ROS2 system simulation
-3. Upper bound analysis
-
-The ROS2 system execution can be found in the ros2_system folder, while the ROS2 system simulation and upper bound analysis can be executed in the simulation_and_analysis folder.
-The results of the experiments will be displayed in the terminal that executes the scripts.
-
-### Deployment
-
-The following steps explain how to deploy the experiments on the machine.
-
-First, clone the git repository or download the [zip file](https://github.com/HarunTeper/ros2-end-to-end):
-```
-git clone https://github.com/HarunTeper/ros2-end-to-end
-```
-Move into the ros2_system folder, change the permissions of the script to be executable, and execute make_script.sh natively:
-```
-cd ros2_system
-chmod 777 make_script.sh
-./make_script.sh
-```
-
-## How to run the experiments
-
-We explain how to run each experiment by itself to reproduce the results of the evaluation. Note that we first explain the general command template structure that is required for each script, after which we also add an example command for each template.
-
-### ROS2 system execution
-
-Start a terminal and move into the ros2_system folder:
-```
-cd ~/ros2-end-to-end/ros2_system
-```
-Execute the make_script:
-```
-./make_script.sh
-```
-Source ROS2-Foxy:
-```
-source /opt/ros/foxy/setup.bash
-```
-Source the experiment packages:
-```
-source install/setup.bash
-```
-Then, select the experiment and set the system configuration and types using the following command template:
-```
-ros2 run rt_nodes $experiment $arg1 $arg2
-```
-You can set the experiment to either feature a navigation_system that is presented in Section 9 or the case_study system from Section 8.
-
-If you select the navigation system, the $type argument specifies the number of sensors of the system. An example system with 4 camera can be launched with:
-```
-ros2 run rt_nodes run_system navigation_system 4
-```
-If you select the case study, you can set decide to use an over- or under-utilized system using $arg1, using the following options:
-```
-over | under
-```
-Additionally, you need to set the system type with $arg2, using the following options:
-| Type                                          | Argument |
-| --------------------------------------------- | -------- |
-| Subscription fusion and subscription actuator | SS       |
-| Subscription fusion and timer actuator        | ST       |
-| timer fusion and timer actuator               | TS       |
-| timer fusion and timer actuator               | TT       |
-
-For example, to run an over-utilized system with a timer fusion and timer actuator, use the following command:
-```
-ros2 run rt_nodes run_system case_study over TT
-```
-When the system is running, it displays the maximum reaction time and maximum data age of each cause-effect chain in the system.
-
-To stop the system execution, press CTRL+C in the terminal in which the system is running.
-
-### ROS2 system simulation and upper bound analysis
-
-Start a terminal and move into the simulaion_and_analysis folder:
-```
-cd ~/ros2-end-to-end/simulation_and_analysis
-```
-Select the experiment and set the system configuration and types using the following template command:
-```
-python3 main.py $simulation_analysis_selection $experiment $arg1 $arg2
-```
-You can decide if you want to run the simulation, analysis or both, using the following options for the $simulation_analysis_selection argument:
-```
-simulation | analysis | both
-```
-You can decide the experiment using the following options:
-```
-navigation system | case_study
-```
-If you select the navigation system, you can set the number of sensors using $arg1$ and do not specify an input for $arg2$. For example, to run both the analysis and simulation for the navigation system with 4 cameras, run the following command:
-```
-python3 main.py both navigation_system 4
-```
-If you select the case study, you can set decide to use an over- or under-utilized system using $arg1, using the following options:
-```
-over | under
-```
-Additionally, you need to set the system type with $arg2, using the following options:
-
-| Type                                          | Argument |
-| --------------------------------------------- | -------- |
-| Subscription fusion and subscription actuator | SS       |
-| Subscription fusion and timer actuator        | ST       |
-| timer fusion and timer actuator               | TS       |
-| timer fusion and timer actuator               | TT       |
-
-For example, if you want to run the analysis and simulation on the case study with an over-utilized system and a timer fusion and timer actuator, use the following command:
-```
-python3 main.py both case_study under TT
-```
-The output of the simulation and analysis includes the end-to-end latencies of all cause-effect chains that are part of the system.
-
-### System and run time details
-
-As a reference, we utilize a machine running Ubuntu 20.04, with an AMD Ryzen 5900 12-Core Processor (12 Cores, 24 Threads) with 3,7GHz and 32GB RAM.
-
-For the virtual machine, we enabled 4 cores and 4096 MB of RAM.
-
-During our experiments, our machine only required a few seconds to run the upper bound analysis and system ROS2 system simulation. For the ROS2 system execution, we only required a few seconds to generate the results for the evaluation. Please note that the timing values of the ROS2 system execution may be different compared to our evaluation due to the system configuration.
-
-## How to use VM
-
-- Please download the [zip file](https://tu-dortmund.sciebo.de/s/Po3B0vSe3UGjEEV), which contains the virtual disk and the machine description. The credential is: ros2end2end/rtss2022
-- The source code is deployed on the desktop already. Some common software are installed accordingly, e.g., vscode, git.
-- Please follow the above description to test out the provided analyses.
-- Please note that the original scripts are for reproducing the results on the paper (so time consuming).
-- Please update the installed repository before running any scripts. You can update the repository using the following commands:
-```
-cd ~/ros2-end-to-end
-git pull
-```
-
-## Overview of the corresponding functions and algorithms
+### Overview of the corresponding functions and algorithms
 
 The following tables describe the mapping between content of our paper and the source code in this repository.
 
@@ -251,6 +226,67 @@ The following tables describe the mapping between content of our paper and the s
 | (2) Message Creation       | rt_node.cpp | RTNode::*Callback()             |
 | (3) Subscription Execution | rt_node.cpp | RTNode::*SubscriptionCallback() |
 | (4) Timer Execution        | rt_node.cpp | RTNode::*TimerCallback()        |
+
+## Environment Setup
+### Requirements
+
+The experiments are split into three parts:
+
+1. ROS2 system execution
+2. ROS2 system simulation
+3. Upper bound analysis
+
+The **ROS2 system execution** requires a system running Ubuntu 20.04, while the **ROS2 system simulation** and **Upper bound analysis** can be run on any system running Python 3. 
+Please note that we are running Python 3.8.10, which is the current version that is provided with Ubuntu 20.04.
+
+For the **ROS2 system execution**, ROS2-Foxy is required.
+
+The installation steps can be found here:
+```
+https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html
+```
+Add ROS2 to your bashrc file:
+```
+echo 'source /opt/ros/foxy/setup.bash' >> ~/.bashrc
+```
+Install Eclipse Cyclone DDS:
+```
+sudo apt install ros-foxy-rmw-cyclonedds-cpp
+```
+Install colcon:
+```
+sudo apt install python3-colcon-common-extensions
+```
+To switch to Cyclone DDS, execute the following command after launching every terminal:
+```
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+```
+Or add the line to the .bashrc file in your home folder:
+```
+echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> ~/.bashrc
+```
+Note that you need to start a new terminal to run the commands in the bashrc file.
+
+### Deployment
+
+The following steps explain how to deploy the experiments on the machine.
+
+First, clone the git repository or download the [zip file](https://github.com/HarunTeper/ros2-end-to-end):
+```
+git clone https://github.com/HarunTeper/ros2-end-to-end
+```
+Move into the ros2_system folder, change the permissions of the script to be executable, and execute make_script.sh natively:
+```
+cd ros2_system
+chmod 777 make_script.sh
+./make_script.sh
+```
+
+### System and run time details
+
+As a reference, we utilize a machine running Ubuntu 20.04, with an AMD Ryzen 5900 12-Core Processor (12 Cores, 24 Threads) with 3,7GHz and 32GB RAM.
+
+For the virtual machine, we enabled 4 cores and 4096 MB of RAM.
 
 ## Miscellaneous
 

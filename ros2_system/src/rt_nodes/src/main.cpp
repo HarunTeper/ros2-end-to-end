@@ -152,12 +152,12 @@ int main(int argc, char * argv[])
                 std::cout << "Wrong utilization name" << std::endl;
                 return 1;
             }
+            time = 10;
         }
         else{
             std::cout << "Wrong system name" << std::endl;
             return 1;
         }
-        time = 10;
     }
     else if (argc == 5){
         if(!strcmp(argv[1], "case_study")){

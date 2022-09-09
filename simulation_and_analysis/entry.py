@@ -39,9 +39,9 @@ class Entry:
     # Print
 
     def __repr__(self):
-        return str(["Data Age", round(self.data_age, 10),
-                    "Reaction Time", round(self.reaction_time, 10), "Chain:", self.history])
+        return str(["Maximum Data Age", round(self.data_age, 10),
+                    "Maximum Reaction Time", round(self.reaction_time, 10), "Chain:", self.history])
 
     def __str__(self):
-        return str(["Data Age", round(self.data_age, 10),
-                    "Reaction Time", round(self.reaction_time, 10), "Chain:", self.history])
+        return str(["Maximum Data Age", round(self.data_age, 10),
+                    "Maximum Reaction Time", round(self.reaction_time, 10), "Chain:", self.history])

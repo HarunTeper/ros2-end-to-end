@@ -172,7 +172,7 @@ class Timer:
 
     def print_analysis(self):
         """Print analysis values"""
-        print("Analysis for Timer ", self.get_pub_topic(), "->")
+        print("End-to-end latencies for Timer ", self.get_pub_topic(), "->")
         # for elem in self.register:
         #     print(elem)
         for elem in self.analysis_register:
